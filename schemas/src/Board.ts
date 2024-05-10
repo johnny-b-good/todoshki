@@ -13,3 +13,17 @@ export type Board = Static<typeof BoardSchema>;
 export const ListOfBoardsSchema = ListWithCountSchema(BoardSchema);
 
 export type ListOfBoards = Static<typeof ListOfBoardsSchema>;
+
+export const BoardToCreateSchema = Type.Object({
+  name: Type.String(),
+});
+
+export type BoardToCreate = Static<typeof BoardToCreateSchema>;
+
+export const BoardToUpdateSchema = Type.Partial(
+  Type.Object({
+    name: Type.String(),
+  }),
+);
+
+export type BoardToUpdate = Static<typeof BoardToUpdateSchema>;
