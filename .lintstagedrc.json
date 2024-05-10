@@ -1,5 +1,5 @@
 {
   "{frontend,backend,schemas}/**/*.{js,jsx,ts,tsx,css,scss,md,html,json}": "npx prettier --list-different",
   "{frontend,backend,schemas}/**/*.{js,jsx,ts,tsx}": "npx eslint",
-  "{frontend}/**/*.{css,scss}": "npx stylelint"
+  "frontend/**/*.{css,scss}": "npx stylelint"
 }
