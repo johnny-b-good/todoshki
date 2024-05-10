@@ -1,0 +1,25 @@
+{
+  "name": "@todoshki/schemas",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": "^20.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist tsconfig.tsbuildinfo && tsc --build"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.32.29"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.7",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,12 +1,10 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
+    "composite": true,
+
     "rootDir": "./src",
     "outDir": "./dist"
-  },
-  "references": [
-    {
-      "path": "../schemas"
-    }
-  ]
+  }
 }

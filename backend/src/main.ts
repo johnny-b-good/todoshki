@@ -5,6 +5,7 @@ import process from "node:process";
 // Lib
 // -----------------------------------------------------------------------------
 import Fastify from "fastify";
+import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import fastifyHelmet from "@fastify/helmet";
 import fastifySensible from "@fastify/sensible";
 
@@ -21,7 +22,7 @@ const start = async () => {
   /** App object */
   const fastify = Fastify({
     logger: true,
-  });
+  }).withTypeProvider<TypeBoxTypeProvider>();
 
   // Plugins
   await fastify.register(loadEnvPlugin);
@@ -49,4 +50,4 @@ const start = async () => {
   }
 };
 
-await start();
+void start();
