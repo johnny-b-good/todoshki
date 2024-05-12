@@ -28,7 +28,7 @@ const loadEnv: FastifyPluginAsync = async (fastify) => {
       properties: {
         HOST: {
           type: "string",
-          default: "0.0.0.0",
+          default: "127.0.0.1",
         },
         PORT: {
           type: "number",

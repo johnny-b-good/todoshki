@@ -6,8 +6,10 @@ import process from "node:process";
 // -----------------------------------------------------------------------------
 import Fastify from "fastify";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
-import fastifyHelmet from "@fastify/helmet";
-import fastifySensible from "@fastify/sensible";
+import { fastifyHelmet } from "@fastify/helmet";
+import { fastifySensible } from "@fastify/sensible";
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 
 // App
 // -----------------------------------------------------------------------------
@@ -27,7 +29,23 @@ const start = async () => {
   // Plugins
   await fastify.register(loadEnvPlugin);
   await fastify.register(prismaPlugin);
-  await fastify.register(fastifyHelmet);
+  await fastify.register(fastifySwagger);
+  await fastify.register(fastifySwaggerUi, {
+    staticCSP: true,
+  });
+  await fastify.register(fastifyHelmet, (fastify) => {
+    return {
+      contentSecurityPolicy: {
+        directives: {
+          ...fastifyHelmet.contentSecurityPolicy.getDefaultDirectives(),
+          "form-action": ["'self'"],
+          "img-src": ["'self'", "data:", "validator.swagger.io"],
+          "script-src": ["'self'"].concat(fastify.swaggerCSP.script),
+          "style-src": ["'self'", "https:"].concat(fastify.swaggerCSP.style),
+        },
+      },
+    };
+  });
   await fastify.register(fastifySensible);
 
   // Routes
