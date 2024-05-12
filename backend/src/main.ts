@@ -18,6 +18,7 @@ import {
   boardsApiPlugin,
   sectionsApiPlugin,
   tasksApiPlugin,
+  healthApiPlugin,
 } from "./routes/index.js";
 
 const start = async () => {
@@ -52,6 +53,7 @@ const start = async () => {
   await fastify.register(boardsApiPlugin);
   await fastify.register(sectionsApiPlugin);
   await fastify.register(tasksApiPlugin);
+  await fastify.register(healthApiPlugin);
 
   // Wait for plugins
   await fastify.ready();
