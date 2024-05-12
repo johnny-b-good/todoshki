@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "rm -rf ./dist && tsc -p tsconfig.json",
-    "start": "node ./dist/main.js"
+    "start": "node ./dist/main.js",
+    "dev": "node ./dist/main.js | pino-pretty"
   },
   "dependencies": {
     "@fastify/env": "^4.3.0",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",
+    "pino-pretty": "^11.0.0",
     "prisma": "^5.13.0",
     "typescript": "^5.2.2"
   }
