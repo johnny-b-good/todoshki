@@ -8,7 +8,7 @@ import { ListOfTasks, ListOfTasksSchema } from "@todoshki/schemas";
  */
 export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
   fastify.get<{ Reply: ListOfTasks }>(
-    "/tasks",
+    "/api/tasks",
     {
       schema: {
         response: {

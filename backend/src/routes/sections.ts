@@ -8,7 +8,7 @@ import { ListOfSections, ListOfSectionsSchema } from "@todoshki/schemas";
  */
 export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
   fastify.get<{ Reply: ListOfSections }>(
-    "/sections",
+    "/api/sections",
     {
       schema: {
         response: {

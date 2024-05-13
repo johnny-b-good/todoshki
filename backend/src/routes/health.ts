@@ -8,7 +8,7 @@ import { StringResponse, StringResponseSchema } from "@todoshki/schemas";
  */
 export const healthApiPlugin = fastifyPlugin((fastify, opts, done) => {
   fastify.get<{ Reply: StringResponse }>(
-    "/health",
+    "/api/health",
     {
       schema: {
         response: {

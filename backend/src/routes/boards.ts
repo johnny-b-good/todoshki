@@ -22,7 +22,7 @@ import {
 export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
   // Получить список досок
   fastify.get<{ Reply: ListOfBoards }>(
-    "/boards",
+    "/api/boards",
     {
       schema: {
         response: {
@@ -49,7 +49,7 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
 
   // Получить одну доску по ID
   fastify.get<{ Reply: Board; Params: ParamsWithId }>(
-    "/boards/:id",
+    "/api/boards/:id",
     {
       schema: {
         response: {
@@ -77,7 +77,7 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
 
   // Создать доску
   fastify.post<{ Reply: Board; Body: BoardToCreate }>(
-    "/boards",
+    "/api/boards",
     {
       schema: {
         response: {
@@ -105,7 +105,7 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
 
   // Обновить доску
   fastify.patch<{ Reply: Board; Body: BoardToUpdate; Params: ParamsWithId }>(
-    "/boards/:id",
+    "/api/boards/:id",
     {
       schema: {
         response: {
@@ -120,7 +120,7 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
 
       const board = await fastify.prisma.board.update({
         where: {
-          id
+          id,
         },
         data: boardData,
       });
@@ -137,7 +137,7 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
 
   // Удалить одну доску по ID
   fastify.delete<{ Reply: StringResponse; Params: ParamsWithId }>(
-    "/boards/:id",
+    "/api/boards/:id",
     {
       schema: {
         response: {
