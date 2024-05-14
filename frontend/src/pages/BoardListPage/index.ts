@@ -1,1 +1,3 @@
-export * from "./BoardListPage";
+import BoardListPage from "./BoardListPage";
+
+export default BoardListPage;

@@ -1,1 +1,1 @@
-export type RouteName = "root" | "boardList";
+export type RouteName = "root" | "boardList" | "board";

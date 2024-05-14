@@ -7,6 +7,8 @@ function makeUrl(routeName: "root"): string;
 
 function makeUrl(routeName: "boardList"): string;
 
+function makeUrl(routeName: "board", params: { id: number }): string;
+
 function makeUrl(
   routeName: RouteName,
   params?: Record<string, string | number>,
