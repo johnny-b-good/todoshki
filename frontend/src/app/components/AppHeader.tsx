@@ -10,7 +10,7 @@ import { makeUrl } from "src/router";
 /** Application header */
 export const AppHeader: FC = () => {
   return (
-    <div className="sticky top-0 flex items-center gap-8 border-t-4 border-t-red-600 bg-white px-5 py-3 shadow">
+    <div className="sticky top-0 flex items-center gap-8 border-t-4 border-t-teal-500 bg-white px-5 py-3 shadow">
       <Link to={makeUrl("root")} className="text-2xl">
         TODOSHKI
       </Link>
