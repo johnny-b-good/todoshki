@@ -5,9 +5,11 @@ import { FC } from "react";
 // App
 // -----------------------------------------------------------------------------
 import { useGetBoardQuery } from "src/api";
+import { useIdParam } from "src/hooks";
 
 const BoardPage: FC = () => {
-  const result = useGetBoardQuery({ id: 1 });
+  const id = useIdParam();
+  const result = useGetBoardQuery({ id });
 
   return (
     <div>
@@ -16,9 +18,7 @@ const BoardPage: FC = () => {
       ) : result.isError ? (
         <div>Error</div>
       ) : (
-        <h1>
-          Board {result.data.id}: {result.data.name}
-        </h1>
+        <h1>{result.data.name}</h1>
       )}
     </div>
   );
