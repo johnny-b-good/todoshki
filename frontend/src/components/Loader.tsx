@@ -22,7 +22,7 @@ export const Loader: FC = () => {
           cy={size / 2}
           fill="none"
           r={size / 2 - strokeWidth / 2}
-          stroke-width={strokeWidth}
+          strokeWidth={strokeWidth}
           stroke="currentColor"
           opacity="0.1"
         />
@@ -31,10 +31,10 @@ export const Loader: FC = () => {
           cy={size / 2}
           fill="none"
           r={size / 2 - strokeWidth / 2}
-          stroke-width={strokeWidth}
+          strokeWidth={strokeWidth}
           stroke="currentColor"
-          stroke-dasharray={`${SECTION_LENGTH}, ${CIRCLE_LENGTH - SECTION_LENGTH}`}
-          stroke-dashoffset="0"
+          strokeDasharray={`${SECTION_LENGTH}, ${CIRCLE_LENGTH - SECTION_LENGTH}`}
+          strokeDashoffset="0"
         />
       </svg>
 
