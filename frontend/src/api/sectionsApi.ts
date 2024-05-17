@@ -8,6 +8,7 @@ import {
   SectionToUpdate,
   ParamsWithId,
   StringResponse,
+  SectionMovement,
 } from "@todoshki/schemas";
 
 // App
@@ -76,6 +77,25 @@ export const useDeleteSectionMutation = ({ id }: ParamsWithId) => {
   return useMutation({
     mutationFn: async () => {
       const res = await axiosClient.delete<StringResponse>(`/sections/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: [SECTIONS_QUERY_KEY_BASE],
+      });
+    },
+  });
+};
+
+export const useMoveSectionMutation = ({ id }: ParamsWithId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: SectionMovement) => {
+      const res = await axiosClient.post<StringResponse>(
+        `/sections/${id}/move`,
+        data,
+      );
       return res.data;
     },
     onSuccess: () => {

@@ -8,6 +8,7 @@ import {
   TaskToUpdate,
   ParamsWithId,
   StringResponse,
+  TaskMovement,
 } from "@todoshki/schemas";
 
 // App
@@ -76,6 +77,25 @@ export const useDeleteTaskMutation = ({ id }: ParamsWithId) => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: [TASKS_QUERY_KEY_BASE] });
+    },
+  });
+};
+
+export const useMoveTaskMutation = ({ id }: ParamsWithId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: TaskMovement) => {
+      const res = await axiosClient.post<StringResponse>(
+        `/tasks/${id}/move`,
+        data,
+      );
+      return res.data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
+        queryKey: [TASKS_QUERY_KEY_BASE],
+      });
     },
   });
 };

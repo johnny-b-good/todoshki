@@ -14,6 +14,8 @@ import {
   ParamsWithIdSchema,
   StringResponse,
   StringResponseSchema,
+  SectionMovementSchema,
+  SectionMovement,
 } from "@todoshki/schemas";
 
 /**
@@ -156,6 +158,39 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
       await fastify.prisma.section.delete({
         where: { id },
       });
+
+      return "ok";
+    },
+  );
+
+  // Переме
+  fastify.post<{
+    Reply: StringResponse;
+    Body: SectionMovement;
+    Params: ParamsWithId;
+  }>(
+    "/api/sections/:id/move",
+    {
+      schema: {
+        response: {
+          200: StringResponseSchema,
+        },
+        body: SectionMovementSchema,
+      },
+    },
+    async (request) => {
+      const { ordering } = request.body;
+
+      await fastify.prisma.$transaction(
+        Object.entries(ordering).map(([sectionId, order]) =>
+          fastify.prisma.section.update({
+            where: { id: parseInt(sectionId) },
+            data: {
+              order,
+            },
+          }),
+        ),
+      );
 
       return "ok";
     },

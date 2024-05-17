@@ -36,3 +36,10 @@ export const TaskToUpdateSchema = Type.Partial(
 );
 
 export type TaskToUpdate = Static<typeof TaskToUpdateSchema>;
+
+export const TaskMovementSchema = Type.Object({
+  sectionId: Type.Integer(),
+  ordering: Type.Record(Type.Integer(), Type.Integer()),
+});
+
+export type TaskMovement = Static<typeof TaskMovementSchema>;

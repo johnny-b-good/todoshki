@@ -14,6 +14,8 @@ import {
   ParamsWithIdSchema,
   StringResponse,
   StringResponseSchema,
+  TaskMovementSchema,
+  TaskMovement,
 } from "@todoshki/schemas";
 
 /**
@@ -152,6 +154,46 @@ export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
       await fastify.prisma.task.delete({
         where: { id },
       });
+
+      return "ok";
+    },
+  );
+
+  // Отсортировать задачи
+  fastify.post<{
+    Reply: StringResponse;
+    Body: TaskMovement;
+    Params: ParamsWithId;
+  }>(
+    "/api/tasks/:id/move",
+    {
+      schema: {
+        response: {
+          200: StringResponseSchema,
+        },
+        body: TaskMovementSchema,
+      },
+    },
+    async (request) => {
+      const { id } = request.params;
+      const { sectionId, ordering } = request.body;
+
+      await fastify.prisma.$transaction([
+        fastify.prisma.task.update({
+          where: { id },
+          data: {
+            sectionId,
+          },
+        }),
+        ...Object.entries(ordering).map(([taskId, order]) =>
+          fastify.prisma.task.update({
+            where: { id: parseInt(taskId) },
+            data: {
+              order,
+            },
+          }),
+        ),
+      ]);
 
       return "ok";
     },

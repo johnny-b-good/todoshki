@@ -36,3 +36,9 @@ export const SectionToUpdateSchema = Type.Partial(
 );
 
 export type SectionToUpdate = Static<typeof SectionToUpdateSchema>;
+
+export const SectionMovementSchema = Type.Object({
+  ordering: Type.Record(Type.Integer(), Type.Integer()),
+});
+
+export type SectionMovement = Static<typeof SectionMovementSchema>;
