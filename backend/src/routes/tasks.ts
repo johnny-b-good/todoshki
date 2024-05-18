@@ -36,14 +36,8 @@ export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const tasks = await fastify.prisma.task.findMany();
       const tasksCount = await fastify.prisma.task.count();
 
-      const convertedTasks = tasks.map((task) => ({
-        ...task,
-        createdAt: task.createdAt.toISOString(),
-        updatedAt: task.updatedAt.toISOString(),
-      }));
-
       return {
-        items: convertedTasks,
+        items: tasks,
         count: tasksCount,
       };
     },
@@ -67,13 +61,7 @@ export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
         where: { id },
       });
 
-      const convertedTask = {
-        ...task,
-        createdAt: task.createdAt.toISOString(),
-        updatedAt: task.updatedAt.toISOString(),
-      };
-
-      return convertedTask;
+      return task;
     },
   );
 
@@ -95,13 +83,7 @@ export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
         data: taskData,
       });
 
-      const convertedTask = {
-        ...task,
-        createdAt: task.createdAt.toISOString(),
-        updatedAt: task.updatedAt.toISOString(),
-      };
-
-      return convertedTask;
+      return task;
     },
   );
 
@@ -121,19 +103,11 @@ export const tasksApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const taskData = request.body;
 
       const task = await fastify.prisma.task.update({
-        where: {
-          id,
-        },
+        where: { id },
         data: taskData,
       });
 
-      const convertedTask = {
-        ...task,
-        createdAt: task.createdAt.toISOString(),
-        updatedAt: task.updatedAt.toISOString(),
-      };
-
-      return convertedTask;
+      return task;
     },
   );
 

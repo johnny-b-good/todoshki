@@ -7,14 +7,17 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 
 // App
 // -----------------------------------------------------------------------------
-import { useGetBoardsListQuery, useCreateBoardMutation } from "src/api";
+import {
+  useGetBoardsListQuery,
+  useCreateBoardWithDefaultSectionsMutation,
+} from "src/api";
 import { makeUrl } from "src/router";
 import { List, Button, Loader, Dialog, Input } from "src/components";
 
 const BoardListPage: FC = () => {
   const navigate = useNavigate();
   const getBoardListResult = useGetBoardsListQuery();
-  const createBoardResult = useCreateBoardMutation();
+  const createBoardResult = useCreateBoardWithDefaultSectionsMutation();
 
   const [isBoardCreationDialogOpen, setIsBoardCreationDialogOpen] =
     useState(false);

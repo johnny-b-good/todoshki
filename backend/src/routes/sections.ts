@@ -36,14 +36,8 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const sections = await fastify.prisma.section.findMany();
       const sectionsCount = await fastify.prisma.section.count();
 
-      const convertedSections = sections.map((section) => ({
-        ...section,
-        createdAt: section.createdAt.toISOString(),
-        updatedAt: section.updatedAt.toISOString(),
-      }));
-
       return {
-        items: convertedSections,
+        items: sections,
         count: sectionsCount,
       };
     },
@@ -67,13 +61,7 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
         where: { id },
       });
 
-      const convertedSection = {
-        ...section,
-        createdAt: section.createdAt.toISOString(),
-        updatedAt: section.updatedAt.toISOString(),
-      };
-
-      return convertedSection;
+      return section;
     },
   );
 
@@ -95,13 +83,7 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
         data: sectionData,
       });
 
-      const convertedSection = {
-        ...section,
-        createdAt: section.createdAt.toISOString(),
-        updatedAt: section.updatedAt.toISOString(),
-      };
-
-      return convertedSection;
+      return section;
     },
   );
 
@@ -125,19 +107,11 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const sectionData = request.body;
 
       const section = await fastify.prisma.section.update({
-        where: {
-          id,
-        },
+        where: { id },
         data: sectionData,
       });
 
-      const convertedSection = {
-        ...section,
-        createdAt: section.createdAt.toISOString(),
-        updatedAt: section.updatedAt.toISOString(),
-      };
-
-      return convertedSection;
+      return section;
     },
   );
 
@@ -163,7 +137,7 @@ export const sectionsApiPlugin = fastifyPlugin((fastify, opts, done) => {
     },
   );
 
-  // Переме
+  // Переместить секцию на доске
   fastify.post<{
     Reply: StringResponse;
     Body: SectionMovement;

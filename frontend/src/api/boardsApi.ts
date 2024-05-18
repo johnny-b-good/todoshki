@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ListOfBoards,
   Board,
+  BoardFull,
   BoardToCreate,
   BoardToUpdate,
   ParamsWithId,
@@ -42,11 +43,38 @@ export const useCreateBoardMutation = () => {
   });
 };
 
+export const useCreateBoardWithDefaultSectionsMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: BoardToCreate) => {
+      const res = await axiosClient.post<Board>(
+        "/boards/createWithDefaultSections",
+        data,
+      );
+      return res.data;
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
+    },
+  });
+};
+
 export const useGetBoardQuery = ({ id }: ParamsWithId) => {
   return useQuery({
     queryKey: [BOARDS_QUERY_KEY_BASE, id],
     queryFn: async () => {
       const res = await axiosClient.get<Board>(`/boards/${id}`);
+      return res.data;
+    },
+  });
+};
+
+export const useGetBoardFullQuery = ({ id }: ParamsWithId) => {
+  return useQuery({
+    queryKey: [BOARDS_QUERY_KEY_BASE, id],
+    queryFn: async () => {
+      const res = await axiosClient.get<BoardFull>(`/boards/${id}/full`);
       return res.data;
     },
   });

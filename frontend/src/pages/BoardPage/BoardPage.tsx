@@ -4,12 +4,12 @@ import { FC } from "react";
 
 // App
 // -----------------------------------------------------------------------------
-import { useGetBoardQuery } from "src/api";
+import { useGetBoardFullQuery } from "src/api";
 import { useIdParam } from "src/hooks";
 
 const BoardPage: FC = () => {
   const id = useIdParam();
-  const result = useGetBoardQuery({ id });
+  const result = useGetBoardFullQuery({ id });
 
   return (
     <div>

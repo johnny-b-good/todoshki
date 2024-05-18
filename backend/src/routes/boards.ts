@@ -14,6 +14,8 @@ import {
   ParamsWithIdSchema,
   StringResponse,
   StringResponseSchema,
+  BoardFull,
+  BoardFullSchema,
 } from "@todoshki/schemas";
 
 /**
@@ -34,14 +36,8 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const boards = await fastify.prisma.board.findMany();
       const boardsCount = await fastify.prisma.board.count();
 
-      const convertedBoards = boards.map((board) => ({
-        ...board,
-        createdAt: board.createdAt.toISOString(),
-        updatedAt: board.updatedAt.toISOString(),
-      }));
-
       return {
-        items: convertedBoards,
+        items: boards,
         count: boardsCount,
       };
     },
@@ -65,13 +61,36 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
         where: { id },
       });
 
-      const convertedBoard = {
-        ...board,
-        createdAt: board.createdAt.toISOString(),
-        updatedAt: board.updatedAt.toISOString(),
-      };
+      return board;
+    },
+  );
 
-      return convertedBoard;
+  // Получить одну доску полностью по ID
+  fastify.get<{ Reply: BoardFull; Params: ParamsWithId }>(
+    "/api/boards/:id/full",
+    {
+      schema: {
+        response: {
+          200: BoardFullSchema,
+        },
+        params: ParamsWithIdSchema,
+      },
+    },
+    async (request) => {
+      const { id } = request.params;
+
+      const board = await fastify.prisma.board.findFirstOrThrow({
+        where: { id },
+        include: {
+          sections: {
+            include: {
+              tasks: true,
+            },
+          },
+        },
+      });
+
+      return board;
     },
   );
 
@@ -93,13 +112,39 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
         data: boardData,
       });
 
-      const convertedBoard = {
-        ...board,
-        createdAt: board.createdAt.toISOString(),
-        updatedAt: board.updatedAt.toISOString(),
-      };
+      return board;
+    },
+  );
 
-      return convertedBoard;
+  // Создать доску вместе с секциями по умолчанию
+  fastify.post<{ Reply: Board; Body: BoardToCreate }>(
+    "/api/boards/createWithDefaultSections",
+    {
+      schema: {
+        response: {
+          200: BoardSchema,
+        },
+        body: BoardToCreateSchema,
+      },
+    },
+    async (request) => {
+      const boardData = request.body;
+
+      const board = await fastify.prisma.board.create({
+        data: {
+          ...boardData,
+          sections: {
+            create: [
+              { name: "To do", role: "todo", order: 1 },
+              { name: "In progress", role: "in_progress", order: 2 },
+              { name: "Done", role: "done", order: 3 },
+              { name: "Rejected", role: "rejected", order: 4 },
+            ],
+          },
+        },
+      });
+
+      return board;
     },
   );
 
@@ -119,19 +164,11 @@ export const boardsApiPlugin = fastifyPlugin((fastify, opts, done) => {
       const boardData = request.body;
 
       const board = await fastify.prisma.board.update({
-        where: {
-          id,
-        },
+        where: { id },
         data: boardData,
       });
 
-      const convertedBoard = {
-        ...board,
-        createdAt: board.createdAt.toISOString(),
-        updatedAt: board.updatedAt.toISOString(),
-      };
-
-      return convertedBoard;
+      return board;
     },
   );
 

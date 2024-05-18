@@ -1,9 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import fastifyPlugin from "fastify-plugin";
 
+import {
+  PrismaClientWithDateTimeExtension,
+  extendPrismaClientWithDateTimeExtension,
+} from "./prismaDateTimeExtension.js";
+
 declare module "fastify" {
   interface FastifyInstance {
-    prisma: PrismaClient;
+    prisma: PrismaClientWithDateTimeExtension;
   }
 }
 
@@ -33,11 +38,14 @@ export const prismaPlugin = fastifyPlugin(async (fastify) => {
     fastify.log.warn(ev, ev.message);
   });
 
+  fastify.addHook("onClose", async () => {
+    await prismaClient.$disconnect();
+  });
+
   await prismaClient.$connect();
 
-  fastify.decorate("prisma", prismaClient);
+  const extendedPrismaClient =
+    extendPrismaClientWithDateTimeExtension(prismaClient);
 
-  fastify.addHook("onClose", async () => {
-    await fastify.prisma.$disconnect();
-  });
+  fastify.decorate("prisma", extendedPrismaClient);
 });
