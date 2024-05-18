@@ -14,10 +14,11 @@ import {
 // App
 // -----------------------------------------------------------------------------
 import { axiosClient } from "./axiosClient";
+import { BOARDS_QUERY_KEY_BASE } from "./boardsApi";
 
 // Consts
 // -----------------------------------------------------------------------------
-const TASKS_QUERY_KEY_BASE = "tasks";
+export const TASKS_QUERY_KEY_BASE = "tasks";
 
 export const useGetTasksListQuery = () => {
   return useQuery({
@@ -39,6 +40,7 @@ export const useCreateTaskMutation = () => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: [TASKS_QUERY_KEY_BASE] });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -63,6 +65,7 @@ export const useUpdateTaskMutation = ({ id }: ParamsWithId) => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: [TASKS_QUERY_KEY_BASE] });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -77,6 +80,7 @@ export const useDeleteTaskMutation = ({ id }: ParamsWithId) => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: [TASKS_QUERY_KEY_BASE] });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -96,6 +100,7 @@ export const useMoveTaskMutation = ({ id }: ParamsWithId) => {
       void queryClient.invalidateQueries({
         queryKey: [TASKS_QUERY_KEY_BASE],
       });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };

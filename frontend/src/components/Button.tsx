@@ -29,7 +29,7 @@ export const Button: FC<ButtonProps> = ({
         variant === "default" &&
           "border-slate-300 bg-white  text-slate-700 hover:border-teal-500 hover:text-teal-500",
         variant === "text" &&
-          "border-transparent bg-white  text-slate-700 hover:bg-slate-100",
+          "border-transparent bg-white text-slate-700 hover:bg-slate-100",
         className,
       )}
       {...props}

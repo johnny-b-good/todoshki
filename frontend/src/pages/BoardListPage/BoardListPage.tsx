@@ -25,7 +25,7 @@ const BoardListPage: FC = () => {
   const [newBoardName, setNewBoardName] = useState("");
 
   return (
-    <div className="mx-auto flex max-w-[960px] flex-col gap-4 px-4 py-8">
+    <div className="mx-auto flex max-w-[960px] flex-col gap-4 p-8">
       <div className="flex items-center">
         <div className="flex-grow text-2xl font-semibold">Your boards</div>
         <Button

@@ -17,7 +17,7 @@ import { axiosClient } from "./axiosClient";
 
 // Consts
 // -----------------------------------------------------------------------------
-const BOARDS_QUERY_KEY_BASE = "boards";
+export const BOARDS_QUERY_KEY_BASE = "boards";
 
 export const useGetBoardsListQuery = () => {
   return useQuery({
@@ -72,7 +72,7 @@ export const useGetBoardQuery = ({ id }: ParamsWithId) => {
 
 export const useGetBoardFullQuery = ({ id }: ParamsWithId) => {
   return useQuery({
-    queryKey: [BOARDS_QUERY_KEY_BASE, id],
+    queryKey: [BOARDS_QUERY_KEY_BASE, id, "FULL"],
     queryFn: async () => {
       const res = await axiosClient.get<BoardFull>(`/boards/${id}/full`);
       return res.data;

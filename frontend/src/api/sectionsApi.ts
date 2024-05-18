@@ -14,10 +14,11 @@ import {
 // App
 // -----------------------------------------------------------------------------
 import { axiosClient } from "./axiosClient";
+import { BOARDS_QUERY_KEY_BASE } from "./boardsApi";
 
 // Consts
 // -----------------------------------------------------------------------------
-const SECTIONS_QUERY_KEY_BASE = "sections";
+export const SECTIONS_QUERY_KEY_BASE = "sections";
 
 export const useGetSectionsListQuery = () => {
   return useQuery({
@@ -41,6 +42,7 @@ export const useCreateSectionMutation = () => {
       void queryClient.invalidateQueries({
         queryKey: [SECTIONS_QUERY_KEY_BASE],
       });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -67,6 +69,7 @@ export const useUpdateSectionMutation = ({ id }: ParamsWithId) => {
       void queryClient.invalidateQueries({
         queryKey: [SECTIONS_QUERY_KEY_BASE],
       });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -83,6 +86,7 @@ export const useDeleteSectionMutation = ({ id }: ParamsWithId) => {
       void queryClient.invalidateQueries({
         queryKey: [SECTIONS_QUERY_KEY_BASE],
       });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };
@@ -102,6 +106,7 @@ export const useMoveSectionMutation = ({ id }: ParamsWithId) => {
       void queryClient.invalidateQueries({
         queryKey: [SECTIONS_QUERY_KEY_BASE],
       });
+      void queryClient.invalidateQueries({ queryKey: [BOARDS_QUERY_KEY_BASE] });
     },
   });
 };

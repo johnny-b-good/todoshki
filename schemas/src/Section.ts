@@ -1,5 +1,6 @@
 import { Static, Type } from "@sinclair/typebox";
 import { ListWithCountSchema } from "./ListWithCount.js";
+import { TaskSchema } from "./Task.js";
 
 export const SectionSchema = Type.Object({
   id: Type.Integer(),
@@ -42,3 +43,12 @@ export const SectionMovementSchema = Type.Object({
 });
 
 export type SectionMovement = Static<typeof SectionMovementSchema>;
+
+export const SectionFullSchema = Type.Composite([
+  SectionSchema,
+  Type.Object({
+    tasks: Type.Array(TaskSchema),
+  }),
+]);
+
+export type SectionFull = Static<typeof SectionFullSchema>;
