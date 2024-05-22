@@ -1,15 +1,13 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, useState } from "react";
+import { FC } from "react";
 import { clsx } from "clsx";
 import { SectionFull } from "@todoshki/schemas";
-import { PlusIcon } from "@heroicons/react/24/solid";
 
 // App
 // -----------------------------------------------------------------------------
 import { Task } from "./Task";
-import { Button, Input } from "src/components";
-import { useCreateTaskMutation } from "src/api";
+import { TaskCreatingEditor } from "./TaskCreatingEditor";
 
 // Props
 // -----------------------------------------------------------------------------
@@ -29,10 +27,6 @@ export const Section: FC<SectionProps> = ({
   attachEditor,
   detachEditor,
 }) => {
-  const createTaskResult = useCreateTaskMutation();
-
-  const [editorContent, setEditorContent] = useState<string>("");
-
   return (
     <div className="flex w-64 flex-none flex-col gap-2 rounded bg-slate-200 p-2 shadow">
       <div className="flex items-center gap-2 text-lg font-semibold">
@@ -56,37 +50,13 @@ export const Section: FC<SectionProps> = ({
         </div>
       )}
 
-      {hasEditor ? (
-        <Input
-          placeholder="New task"
-          value={editorContent}
-          onChange={(ev) => {
-            setEditorContent(ev.target.value);
-          }}
-          onBlur={() => {
-            if (editorContent) {
-              void createTaskResult
-                .mutateAsync({
-                  content: editorContent,
-                  sectionId: section.id,
-                  order: 0,
-                  boardId,
-                })
-                .then(() => {
-                  setEditorContent("");
-                  detachEditor();
-                });
-            } else {
-              detachEditor();
-            }
-          }}
-          autoFocus
-        />
-      ) : (
-        <Button onClick={attachEditor} variant="text">
-          <PlusIcon className="size-4" /> Create task
-        </Button>
-      )}
+      <TaskCreatingEditor
+        boardId={boardId}
+        sectionId={section.id}
+        hasEditor={hasEditor}
+        attachEditor={attachEditor}
+        detachEditor={detachEditor}
+      />
     </div>
   );
 };

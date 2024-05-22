@@ -15,7 +15,7 @@ export const Field: FC<HeadlessFieldProps> = ({
 }) => {
   return (
     <HeadlessField
-      className={clsx("flex flex-col gap-2", className)}
+      className={clsx("flex flex-col gap-1", className)}
       {...props}
     >
       {children}
