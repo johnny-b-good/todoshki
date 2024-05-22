@@ -39,10 +39,12 @@ export const Dialog: FC<DialogProps> = ({
     <HeadlessDialog open={open} onClose={onCancel} className="relative z-50">
       <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-black bg-opacity-10 p-4 ">
         <DialogPanel
-          className="max-w-xl space-y-4 rounded border bg-white px-8 py-6 shadow-xl"
+          className="max-w-xl space-y-4 rounded border bg-white px-8 py-6 text-sm shadow-xl"
           style={{ width }}
         >
-          {title && <DialogTitle className="font-bold">{title}</DialogTitle>}
+          {title && (
+            <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
+          )}
 
           {description && <Description>{description}</Description>}
 

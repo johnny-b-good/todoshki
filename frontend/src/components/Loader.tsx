@@ -38,7 +38,7 @@ export const Loader: FC = () => {
         />
       </svg>
 
-      <div>Loading...</div>
+      <div className="text-sm">Loading...</div>
     </div>
   );
 };

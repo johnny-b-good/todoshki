@@ -22,11 +22,11 @@ export const List = <T extends { id: number }>({
   itemClassName,
 }: ListProps<T>) => {
   return (
-    <div className={clsx("rounded bg-white shadow", listClassName)}>
+    <div className={clsx("rounded bg-white text-sm shadow", listClassName)}>
       {items.map((item, index) => (
         <div
           className={clsx(
-            "flex cursor-pointer  transition-colors hover:bg-slate-50",
+            "flex cursor-pointer text-sm transition-colors hover:bg-slate-50",
             index !== items.length - 1 &&
               "border-b border-solid border-b-slate-300",
             index === 0 && "rounded-t",

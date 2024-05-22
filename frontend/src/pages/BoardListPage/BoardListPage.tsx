@@ -33,7 +33,7 @@ const BoardListPage: FC = () => {
             setIsBoardCreationDialogOpen(true);
           }}
         >
-          <PlusIcon className="size-5" /> Create new
+          <PlusIcon className="size-4" /> Create new
         </Button>
       </div>
 

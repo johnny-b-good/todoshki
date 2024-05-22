@@ -34,22 +34,22 @@ export const Section: FC<SectionProps> = ({
   const [editorContent, setEditorContent] = useState<string>("");
 
   return (
-    <div className="flex w-80 flex-col gap-4 rounded bg-slate-100 px-4 py-2 shadow">
+    <div className="flex w-64 flex-none flex-col gap-2 rounded bg-slate-200 p-2 shadow">
       <div className="flex items-center gap-2 text-lg font-semibold">
+        {section.name}
         <div
           className={clsx(
-            "h-4 w-2 rounded-sm",
+            "h-2 w-2 rounded-full",
             section.role === "todo" && "bg-slate-500",
             section.role === "in_progress" && "bg-cyan-500",
             section.role === "done" && "bg-green-500",
             section.role === "rejected" && "bg-red-500",
           )}
         ></div>
-        {section.name}
       </div>
 
       {section.tasks.length > 0 && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {section.tasks.map((task) => (
             <Task key={task.id} task={task} />
           ))}
@@ -83,8 +83,8 @@ export const Section: FC<SectionProps> = ({
           autoFocus
         />
       ) : (
-        <Button onClick={attachEditor}>
-          <PlusIcon className="size-5" /> Create new
+        <Button onClick={attachEditor} variant="text">
+          <PlusIcon className="size-4" /> Create task
         </Button>
       )}
     </div>
