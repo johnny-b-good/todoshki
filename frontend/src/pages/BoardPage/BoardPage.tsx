@@ -23,7 +23,7 @@ const BoardPage: FC = () => {
     <div>Error</div>
   ) : (
     <Page title={getBoardFullResult.data.name}>
-      <div className="grid min-h-0 grid-flow-col items-start gap-4 overflow-x-auto overflow-y-hidden pb-4">
+      <div className="grid min-h-0 grid-flow-col items-start justify-start gap-4 overflow-x-auto overflow-y-hidden pb-4">
         {getBoardFullResult.data.sections.map((section) => (
           <Section
             key={section.id}
