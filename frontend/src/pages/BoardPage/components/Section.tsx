@@ -28,8 +28,16 @@ export const Section: FC<SectionProps> = ({
   detachEditor,
 }) => {
   return (
-    <div className="flex w-64 flex-none flex-col gap-2 rounded bg-slate-200 p-2 shadow">
-      <div className="flex items-center gap-2 text-lg font-semibold">
+    <div
+      className={clsx(
+        "grid",
+        section.tasks.length > 0
+          ? "grid-rows-[min-content_1fr_min-content]"
+          : "grid-rows-[min-content_min-content]",
+        "max-h-full min-h-0 w-64 gap-1 overflow-y-hidden rounded bg-slate-200 p-1 shadow",
+      )}
+    >
+      <div className="flex items-center gap-2 p-1 text-lg  font-semibold">
         {section.name}
         <div
           className={clsx(
@@ -43,7 +51,7 @@ export const Section: FC<SectionProps> = ({
       </div>
 
       {section.tasks.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <div className="grid min-h-0 grid-flow-row gap-2 overflow-y-auto px-1">
           {section.tasks.map((task) => (
             <Task key={task.id} task={task} />
           ))}

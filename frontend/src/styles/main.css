@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --scrollbar-foreground: rgb(0 0 0 / 20%);
+  --scrollbar-background: rgb(0 0 0 / 10%);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem; /* Mostly for vertical scrollbars */
+  height: 0.5rem; /* Mostly for horizontal scrollbars */
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: var(--scrollbar-foreground);
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+  /* Background */
+  background: var(--scrollbar-background);
+  border-radius: 0.25rem;
+}

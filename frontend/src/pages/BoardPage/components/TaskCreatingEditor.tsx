@@ -1,7 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { FC, useState, useCallback, KeyboardEvent } from "react";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useClickAway } from "@uidotdev/usehooks";
 
 // App
@@ -67,7 +67,7 @@ export const TaskCreatingEditor: FC<TaskCreatingEditorProps> = ({
   );
 
   return hasEditor ? (
-    <div className="flex w-60 flex-none flex-col gap-2" ref={ref}>
+    <div className="flex w-60 flex-none flex-col gap-2 p-1" ref={ref}>
       <Textarea
         placeholder="New task"
         autoComplete="off"

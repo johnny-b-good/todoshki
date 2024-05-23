@@ -13,7 +13,7 @@ export interface TaskProps {
 /** Task component */
 export const Task: FC<TaskProps> = ({ task }) => {
   return (
-    <div className="w-60 rounded bg-white px-2 py-1 text-sm shadow">
+    <div className="max-w-60 rounded bg-white px-2 py-1 text-sm shadow">
       {task.content}
     </div>
   );

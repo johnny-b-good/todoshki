@@ -1,7 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { FC, useState, useCallback, KeyboardEvent } from "react";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useClickAway } from "@uidotdev/usehooks";
 
 // App
